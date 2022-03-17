@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>Computacion grafica I - canvas </title>
+    </head>
+    <body>
+        <canvas
+        id="c"
+        height="400"
+        width="400"
+        style="border: solid 1px black;">
+    </canvas>
+
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+
+        setInterval(function(){
+            let date = new Date();
+            let hour = date.getHours();
+            let min = date.getMinutes();
+            let sec = date.getSeconds();
+            let secGrade = (Math.PI*2)/43200;
+            let minGrade = (Math.PI*2)/60;
+            let hourGrade = (Math.PI*2)/12;
+
+            ctx.clearRect(0, 0, 400, 400);
+            ctx.beginPath();
+            ctx.arc(200, 200, 100 , 0 * Math.PI, 2 * Math.PI);
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+            ctx.moveTo(200, 200);
+            let x = 200 + Math.cos(hourGrade * hour - 15 * minGrade) * 50;
+            let y = 200 + Math.sin(hourGrade * hour - 15 * minGrade) * 50;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+
+            ctx.moveTo(200, 200);
+            x = 200 + Math.cos(minGrade * min - 15 * minGrade) * 75;
+            y = 200 + Math.sin(minGrade * min - 15 * minGrade) * 75;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+
+            ctx.moveTo(200, 200);
+            x = 200 + Math.cos(minGrade * sec - 15 * minGrade) * 90;
+            y = 200 + Math.sin(minGrade * sec - 15 * minGrade) * 90;
+            ctx.lineTo(x, y);
+            ctx.stroke();  
+        }, 1000);
+        
+    </script>
+    </body>
+</html>

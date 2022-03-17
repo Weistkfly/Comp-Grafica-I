@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Computacion grafica I - canvas </title>
+    </head>
+    <body>
+        <canvas
+        id="c"
+        height="400"
+        width="400"
+        style="border: solid 1px black;">
+    </canvas>
+
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+        let origin = null;
+
+        canvas.onmousedown = function(e){
+            origin = {"x":e.layerX, "y":e.layerY};
+        }
+
+        canvas.onmousemove = function(e){
+            if(origin != null){
+                ctx.clearRect(0, 0, 400, 400);
+                ctx.beginPath();
+
+                ctx.moveTo(origen.x, origen.y);
+
+                ctx.lineTo(e.layerX, e.layerY);
+            }
+        }
+
+        canvas.onmouseup = function(){
+            drawing = !drawing;
+        }
+      
+    </script>
+    </body>
+</html>

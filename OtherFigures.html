@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Computacion grafica I - canvas </title>
+    </head>
+    <body>
+        <canvas
+        id="c"
+        height="400"
+        width="400"
+        style="border: solid 1px black;">
+    </canvas>
+
+    <p>
+        <label>Sides</label>
+        <input id="sides" type="range" value="3" min="3" max="64">
+    </p>
+
+    <p>
+        <label>Radio</label>
+        <input id="radio" type="range" value="100" min="10" max="190">
+    </p>
+    
+
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+        let sides = document.getElementById("sides");
+        let center = {x:200, y:200};
+        let radio = document.getElementById("radio");
+
+        //ctx.ellipse(100, 100, 50, 75, Math.PI / 4, 0, 2 * Math.PI);
+
+        const draw = function(){
+            //Draw figure
+            let angle = (Math.PI * 2) / sides.value;
+
+            ctx.clearRect(0, 0, 400, 400);
+
+            ctx.beginPath();
+
+            for(let i = 0; i<sides.value; i++){
+                let x = center.x + Math.cos(angle * i) * radio.value;
+                let y = center.y + Math.sin(angle * i) * radio.value;
+
+                if (i == 0){
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.stroke();
+            requestAnimationFrame(draw);
+        }
+
+      //Excute method
+      draw();
+
+    </script>
+    </body>
+</html>

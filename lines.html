@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Computacion grafica I - canvas </title>
+    </head>
+    <body>
+        <canvas
+        id="c"
+        height="400"
+        width="400"
+        style="border: solid 1px black;">
+    </canvas>
+
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+
+        //Mi codigo
+        //Didn't use beginpath() here 'cause 
+        //It was explained after I made this block
+      ctx.moveTo(200, 200);
+      ctx.lineTo(300, 300);
+      ctx.lineTo(300, 100);
+      ctx.closePath(); // returns to the last position in moveTo()
+      ctx.stroke();
+
+      ctx.beginPath(); //Always start with begin path. Needs a previous stroke.
+      ctx.moveTo(190, 200);
+      ctx.lineTo(90, 300);
+      ctx.lineTo(90, 100);
+      ctx.closePath();
+      ctx.fillStyle = "blue";
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 5;
+      ctx.fill();
+      ctx.stroke();
+      
+    </script>
+    </body>
+</html>

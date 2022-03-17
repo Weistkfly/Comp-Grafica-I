@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Computacion grafica I - canvas </title>
+    </head>
+    <body>
+        <canvas
+        id="c"
+        height="400"
+        width="400"
+        style="border: solid 1px black;">
+    </canvas>
+
+    <script>
+        //Create body
+        //Create canvas
+        //Asign id to canvas
+        //Asign H&W to canvas
+        //Add style -> border: solid px color
+        //Create a variable that gets the element by id ("Canvas")
+        //Create a variable for context -> variable.getContext("2d")
+        //Then u can star using canvas
+        
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+
+        // Ellipse Example
+        //ctx.ellipse(100, 100, 50, 75, Math.PI / 4, 0, 2 * Math.PI);
+
+        //Mi codigo
+        ctx.fillRect(200, 200, 60, 30);
+        ctx.fillRect(250, 250, 60, 30);
+        ctx.fillRect(300, 200, 60, 30);
+      
+    </script>
+    </body>
+</html>
