@@ -15,17 +15,20 @@
         let ctx = canvas.getContext("2d");
         let center = 0;
         let mouse = {x:0, y:0}; 
+        let mouse2 = {x:0, y:0}; 
 
         canvas.onmousedown = function(e){
             ctx.clearRect(0, 0, 400, 400);
-            mouse = {x:e.layerX, y:e.layerY}; 
-        }
-
-        canvas.onmousemove=function(e){
-            center++; 
+            mouse = {x:e.layerX, y:e.layerY};
+            console.log(mouse.x);            
         }
 
         canvas.onmouseup=function(e){
+            mouse2 = {x:e.layerX, y:e.layerY};
+            console.log(mouse2.x); 
+            center = Math.sqrt(Math.pow(mouse2.x - mouse.x, 2) + Math.pow(mouse2.y - mouse.y, 2));
+            console.log(Math.pow(mouse2.x - mouse.x) + Math.pow(mouse2.y - mouse.y));
+            console.log(center);
             ctx.beginPath();
             ctx.arc(mouse.x, mouse.y, center , 0 * Math.PI, 2 * Math.PI);
             ctx.stroke();

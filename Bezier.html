@@ -21,6 +21,7 @@
         let ctx = canvas.getContext("2d");
         let color = document.getElementById("color");
         const squares = [];
+        const colors = ["#069050", "#2733ba", "#ba27a7", "#f5c6ef"]
         let seleccionado = null;
         
         function dibujar(){
@@ -46,7 +47,8 @@
 
         canvas.ondblclick = function(e){
             let mouse = {x:e.layerX, y:e.layerY};
-            squares.push({x: mouse.x, y:mouse.y, ancho:20, alto:20, col: color.value});
+            let random = Math.floor(Math.random() * colors.length);
+            squares.push({x: mouse.x, y:mouse.y, ancho:20, alto:20, col: colors[random]});
         }
 
         canvas.onmousedown=function(e){
