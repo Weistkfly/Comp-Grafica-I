@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>Computación Gráfica I - Canvas</title>
+</head>
+
+<body>
+    <canvas id="c" height="400" width="400" style="border:solid 1px black;">
+
+    </canvas>
+    <input type="range" min="0" max="360" step="1" value="0" id="grados" />
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+        let input = document.getElementById("grados");
+
+        ctx.translate(200+150, 200+75);
+      
+        input.oninput = function () {
+            ctx.save();
+            ctx.clearRect(-200,-200,400,400);
+
+            ctx.rotate(input.value * Math.PI / 180);
+
+            ctx.fillRect(-150, -75, 150, 75);
+
+            ctx.restore();
+        }
+    </script>
+
+</body>
+
+</html>

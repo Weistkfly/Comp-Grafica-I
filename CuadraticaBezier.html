@@ -5,8 +5,8 @@
     <body>
         <canvas 
         id="c" 
-        height="400" 
-        width="400" 
+        height="1000" 
+        width="1000" 
         style="border:solid 1px black;">
 
         </canvas>
@@ -23,10 +23,13 @@
         let color = document.getElementById("color");
         const squares = [];
         let seleccionado = null;
+        let image = new Image();
+        image.src = "Zorro.png"
         
         function dibujar(){
             ctx.clearRect(0,0,400,400);
 
+            ctx.drawImage(image, 100, 100);
             if(squares.length >= 3){
                 ctx.beginPath();
                 ctx.moveTo(squares[0].x,squares[0].y);

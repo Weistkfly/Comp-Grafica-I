@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Zorro</title>
+    </head>
+<body>
+
+    <canvas id="kurama" width="400" height="400"  
+    style="border: 1px solid black;">
+    </canvas>
+
+    <script>
+        let canvas = document.getElementById("kurama");
+        let ctx = canvas.getContext("2d");
+
+        //dibujando la cabeza
+        ctx.beginPath();
+        //triangulo empieza aqui
+        ctx.moveTo(220,310);
+        ctx.lineTo(99,220);
+        ctx.lineTo(330,220);
+        ctx.lineTo(220,310);
+        //triangulo termina aqui
+        //curva para el triangulo
+        ctx.moveTo(329,220);
+        ctx.bezierCurveTo(220,50,180,110,100,220);
+        ctx.strokeStyle = "#FF5733";
+        ctx.fillStyle = "#FF5733";
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+        
+        // dibujando la nariz
+        ctx.globalCompositeOperation = "source-atop";
+        ctx.beginPath();
+        ctx.arc(218,300,25,0, (2 *Math.PI));
+        ctx.fillStyle = "#030100";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+
+        //dibujando la mejillas
+        ctx.beginPath();
+        //mejilla izquierda
+        ctx.arc(138,245,70,0,(2*Math.PI));
+        ctx.fillStyle = "#EEEEEE";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+
+        //mejilla derecha
+        ctx.beginPath();
+        ctx.arc(298,245,70,0,(2 *Math.PI))  ;
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+
+        //dibujando la orejas del exteriror
+        ctx.globalCompositeOperation = "destination-over";
+        //oreja de la derecha
+        ctx.beginPath();
+        ctx.moveTo(300,180);
+        ctx.quadraticCurveTo(340,35,225,160);
+        ctx.fillStyle = "#FF5733";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+        //oreja de la izquierda
+        ctx.beginPath();
+        ctx.moveTo(115,200);
+        ctx.quadraticCurveTo(75,40,180,160);
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();    
+
+
+        //dibujando la oreja interior o sombra
+        ctx.globalCompositeOperation = "source-over";
+        //interior de la derecha
+        ctx.beginPath();
+        ctx.moveTo(300,175);
+        ctx.quadraticCurveTo(320,80,260,135);
+        ctx.strokeStyle = "#F0D0BB";
+        ctx.fillStyle = "#F0D0BB";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+        //interior de la izquierda
+        ctx.beginPath();
+        ctx.moveTo(115,200);
+        ctx.quadraticCurveTo(100,80,155,155);
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+
+
+
+        //dibujando los ojos
+
+        //iris de la izquierda
+        ctx.beginPath();
+        ctx.arc(175,230,7,0,Math.PI*2);
+        ctx.strokeStyle = "#080808";
+        ctx.fillStyle = "#080808";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+
+        //iris de la derecha
+        ctx.beginPath();
+        ctx.arc(253,230,7,0,Math.PI*2);
+        ctx.stroke();
+        ctx.fill();
+
+
+        //dibujando la pupila
+        ctx.beginPath();
+        ctx.arc(175,228,3,0,Math.PI*2);
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.fillStyle = "#FFFFFF ";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+
+        //dibujando la pupila de la derecha
+        ctx.beginPath();
+        ctx.arc(252,228,3,0,Math.PI*2);
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+    
+
+    </script>
+    
+</body>
+</html>

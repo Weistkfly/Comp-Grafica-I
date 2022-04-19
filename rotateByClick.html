@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <title>Computación Gráfica I - Canvas</title>
+</head>
+
+<body>
+    <canvas id="c" height="400" width="400" style="border:solid 1px black;">
+
+    </canvas>
+    <input type="range" min="0" max="360" step="1" value="0" id="grados" />
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+        let input = document.getElementById("grados");
+        square = {x: 150, y:75, w:150, h:75};
+        translation = {x: 200, y:200};
+
+        ctx.translate(translation.x + square.x, translation.y + square.y);
+
+        canvas.onclick = function(e){
+            let mouse = {x:e.layerX, y:e.layerY};
+           // console.log(mouse.x, mouse.y);
+            if (mouse.x >= square.x && 
+                mouse.x <= square.x + square.w &&
+                mouse.y >= square.y && 
+                mouse.y <= square.y + square.h
+                ){
+                    console.log("got it");
+                    square.x = mouse.x;
+                    square.y = mouse.y;
+                }   
+        }
+        
+        input.oninput = function () {
+            ctx.save();
+            ctx.clearRect(-200,-200,400,400);
+
+            ctx.rotate(input.value * Math.PI / 180);
+
+            ctx.fillRect(square.x * -1, square.y * -1, square.w, square.h);
+
+            ctx.restore();
+        }
+    </script>
+
+</body>
+
+</html>

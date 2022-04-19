@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <title>Computacion grafica I - canvas </title>
+    </head>
+    <body>
+        <canvas
+        id="c"
+        height="400"
+        width="400"
+        style="border: solid 1px black;">
+    </canvas>
+
+    <script>        
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+
+        canvas.ondblclick = function(e){
+            let mouse = {x:e.layerX, y:e.layerY};
+            console.log("x: " + mouse.x + ", y: " + mouse.y, 10, 10);
+        }
+
+        //body (head)
+        ctx.beginPath();
+        ctx.moveTo(50, 225);
+        ctx.bezierCurveTo(139, 40, 258, 30, 357, 225);
+        ctx.lineTo(203, 321);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fillStyle = "#FC7B51";
+        ctx.fill();
+
+        //Nose
+        ctx.globalCompositeOperation = "source-atop";
+        ctx.beginPath();
+        ctx.arc(204, 375, 79, 0, Math.PI * 2);
+        ctx.fillStyle = "#474745";
+        ctx.fill();
+
+        //Left Cheek
+        ctx.globalCompositeOperation = "source-atop";
+        ctx.beginPath();
+        ctx.arc(100, 255, 80, 0, Math.PI * 2);
+        ctx.fillStyle = "#F0D0BB";
+        ctx.fill();
+   
+        //Right Cheek
+        ctx.globalCompositeOperation = "source-atop";
+        ctx.beginPath();
+        ctx.arc(300, 255, 80, 0, Math.PI * 2);
+        ctx.fillStyle = "#F0D0BB";
+        ctx.fill();
+
+        //Ear rigth
+        ctx.globalCompositeOperation = "destination-over";
+        ctx.beginPath();
+        ctx.moveTo(320, 173);
+        ctx.quadraticCurveTo(400, -2, 240, 92);
+        ctx.fillStyle = "#FC7B51";
+        ctx.fill();
+
+        //Ear left
+        ctx.globalCompositeOperation = "destination-over";
+        ctx.beginPath();
+        ctx.moveTo(83, 173);
+        ctx.quadraticCurveTo(-15, -2, 157, 92);
+        ctx.fill();
+
+        //Inner left ear
+        ctx.globalCompositeOperation = "source-over";
+        ctx.beginPath();
+        ctx.moveTo(85, 150);
+        ctx.quadraticCurveTo(5, 30, 150, 100);
+        ctx.fillStyle = "#F0D0BB";
+        ctx.fill();
+
+        //Inner right ear
+        ctx.globalCompositeOperation = "source-over";
+        ctx.beginPath();
+        ctx.moveTo(310, 150);
+        ctx.quadraticCurveTo(380, 45, 260, 100);
+        ctx.fillStyle = "#F0D0BB";
+        ctx.fill();
+
+        //left eye
+        ctx.beginPath();
+        ctx.arc(250, 241, 10, 0, Math.PI * 2);
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+        
+        //Right eye
+        ctx.beginPath();
+        ctx.arc(150, 241, 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        //Right pupil
+        ctx.beginPath();
+        ctx.arc(148, 238, 4, 0, Math.PI * 2);
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fill();
+
+        //left pupil
+        ctx.beginPath();
+        ctx.arc(248, 238, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+
+    </script>
+    </body>
+</html>
