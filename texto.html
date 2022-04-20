@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Canvas - </title>
+</head>
+
+<body>
+    <canvas id="c" height="400" width="400" style="border:solid 1px black;">
+
+    </canvas>
+
+    <p>
+        <label for="text">Text:</label>
+        <input type="text" id="text" value="Hola mundo" />
+    </p>
+    <p>
+        <label for="stroke-color">Stroke color:</label>
+        <input type="color" id="stroke-color" value="black" />
+    </p>
+    <p>
+        <label for="fill-color">Fill color:</label>
+        <input type="color" id="fill-color" value="black" />
+    </p>
+
+    <p>
+        <label for="fill-style">Fill style:</label>
+        <select id="fill-style">
+            <option value="1">Color</option>
+            <option value="2">Linear gradient</option>
+            <option value="3">Radial gradient</option>
+            <option value="4">Texture</option>
+        </select>
+    </p>
+    <p>
+        <label for="text-style">Text style:</label>
+        <select id="text-style">
+            <option>fill</option>
+            <option>stroke</option>
+            <option>both</option>
+        </select>
+    </p>
+
+    <p>
+        <label for="font-style">font-style:</label>
+        <select id="font-style">
+            <option>normal</option>
+            <option>italic</option>
+            <option>oblique</option>
+        </select>
+    </p>
+    <p>
+        <label for="font-variant">font-variant:</label>
+        <select id="font-variant">
+            <option>normal</option>
+            <option>small-caps</option>
+        </select>
+    </p>
+    <p>
+        <label for="font-weight">font-weight:</label>
+        <select id="font-weight">
+            <option>normal</option>
+            <option>bold</option>
+            <option>bolder</option>
+            <option>lighter</option>
+            <option>100</option>
+            <option>300</option>
+        </select>
+    </p>
+    <p>
+        <label for="font-size">font-size:</label>
+        <input type="range" id="font-size" min="1" max="90" value="14" />
+    </p>
+    <p>
+        <label for="font-family">font-family:</label>
+        <select id="font-family">
+            <option>sans-serif</option>
+            <option>serif</option>
+            <option>arial</option>
+            <option>verdana</option>
+
+        </select>
+    </p>
+    <p>
+        <label for="draw-lines">draw-lines:</label>
+        <input type="checkbox" id="draw-lines" />
+    </p>
+    <p>
+        <label for="text-align">text-align:</label>
+        <select id="text-align">
+            <option>start</option>
+            <option>end</option>
+            <option>center</option>
+            <option>left</option>
+            <option>right</option>
+
+        </select>
+    </p>
+    <p>
+        <label for="text-baseline">text-baseline:</label>
+        <select id="text-baseline">
+            <option>alphabetic</option>
+            <option>top</option>
+            <option>hanging</option>
+            <option>middle</option>
+            <option>ideographic</option>
+            <option>bottom</option>
+
+        </select>
+    </p>
+    <p>
+        <label for="shadow-offset-x">shadow offset x:</label>
+        <input type="range" id="shadow-offset-x" min="1" max="90" value="0" />
+    </p>
+    <p>
+        <label for="shadow-offset-y">shadow offset y:</label>
+        <input type="range" id="shadow-offset-y" min="1" max="90" value="0" />
+    </p>
+    <p>
+        <label for="shadow-blur">shadow blur:</label>
+        <input type="range" id="shadow-blur" min="1" max="90" value="0" />
+    </p>
+    <p>
+        <label for="shadow-color">Shadow color:</label>
+        <input type="color" id="shadow-color" value="black" />
+    </p>
+
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+        let img = new Image();
+        img.src = "https://previews.123rf.com/images/flukesamed/flukesamed1501/flukesamed150100001/35253868-blaze-fire-flame-texture-background.jpg";
+
+        let pattern = ctx.createPattern(img, "repeat");
+
+        let text = document.getElementById("text");
+
+        let fillColorInput = document.getElementById("fill-color");
+        let fillStyleInput =  document.getElementById("fill-style");
+        let strokeColorInput = document.getElementById("stroke-color");
+        let textStyleInput = document.getElementById("text-style");
+
+        let fontStyleInput = document.getElementById("font-style");
+        let fontVariantInput = document.getElementById("font-variant");
+        let fontWeightInput = document.getElementById("font-weight");
+        let fontSizeInput = document.getElementById("font-size");
+        let fontFamilyInput = document.getElementById("font-family");
+        let textAlignInput = document.getElementById("text-align");
+        let textBaseLineInput = document.getElementById("text-baseline");
+
+        let shadowOffsetXInput = document.getElementById("shadow-offset-x");
+        let shadowOffsetYInput = document.getElementById("shadow-offset-y");
+        let shadowBlurInput = document.getElementById("shadow-blur");
+        let shadowColorInput = document.getElementById("shadow-color");
+
+        let drawLinesInput = document.getElementById("draw-lines");
+
+        function draw() {
+            //limpiar
+            ctx.clearRect(0, 0, 400, 400);
+
+            ctx.font = fontStyleInput.value + " " + fontVariantInput.value + " " + fontWeightInput.value + " " + fontSizeInput.value + "px " + fontFamilyInput.value;
+
+
+
+            if (drawLinesInput.checked) {
+                ctx.save();
+                ctx.strokeStyle = "red";
+                ctx.moveTo(150, 0);
+                ctx.lineTo(150, 400);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.strokeStyle = "blue";
+                ctx.moveTo(0, 70);
+                ctx.lineTo(400, 70);
+                ctx.stroke();
+                ctx.restore();
+            }
+            var my_gradient = ctx.createRadialGradient(200, 200, 50, 200, 200, 200);
+            my_gradient.addColorStop(0, "black");
+            my_gradient.addColorStop(0.5, "yellow");
+            my_gradient.addColorStop(1, "white");
+
+            switch(fillStyleInput.value){
+                //Color
+                case "1":{
+                    ctx.fillStyle=fillColorInput.value;
+                    ctx.strokeStyle = strokeColorInput.value;
+                    break;
+                }
+                //Radial
+                case "2":{
+                    ctx.fillStyle=my_gradient;
+                    break;
+                }
+                //Grandient
+                case "3":{
+                    ctx.fillStyle=my_gradient;
+                    break;
+                }
+                //Texture
+                case "4":{
+                    let pattern = ctx.createPattern(img,"repeat");
+                    ctx.fillStyle=pattern;
+                    ctx.strokeStyle=pattern;;
+                    break;
+                }
+
+
+            }
+
+
+            ctx.textAlign = textAlignInput.value;
+            ctx.textBaseline = textBaseLineInput.value;
+
+            //sombra
+            ctx.shadowOffsetX = shadowOffsetXInput.value;
+            ctx.shadowOffsetY = shadowOffsetYInput.value;
+            ctx.shadowBlur = shadowBlurInput.value;
+            ctx.shadowColor = shadowColorInput.value;
+
+            switch (textStyleInput.value) {
+                case "stroke": {
+                    ctx.strokeText(text.value, 150, 70);
+                    break;
+                }
+                case "fill": {
+                    ctx.fillText(text.value, 150, 70);
+                    break;
+                }
+                default: {
+                    ctx.strokeText(text.value, 150, 70);
+                    ctx.fillText(text.value, 150, 70);
+                    break;
+                }
+            }
+
+        }
+
+        draw();
+
+        text.oninput = draw;
+        fontStyleInput.onchange = draw;
+        fontVariantInput.onchange = draw;
+        fontWeightInput.onchange = draw;
+        fontSizeInput.oninput = draw;
+        fontFamilyInput.onchange = draw;
+        fillColorInput.oninput = draw;
+        strokeColorInput.oninput = draw;
+        textStyleInput.onchange = draw;
+        textAlignInput.onchange = draw;
+        textBaseLineInput.onchange = draw;
+
+        shadowOffsetXInput.oninput = draw;
+        shadowOffsetYInput.oninput = draw;
+        shadowBlurInput.oninput = draw;
+        shadowColorInput.oninput = draw;
+        drawLinesInput.onchange = draw;
+        fillStyleInput.onchange =draw;
+    </script>
+</body>
+
+</html>

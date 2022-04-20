@@ -13,19 +13,61 @@
         let canvas = document.getElementById("c");
         let ctx = canvas.getContext("2d");
         let input = document.getElementById("grados");
+        let pivotPoint =null;
+        let rect = {x:125, y:162.5, ancho:150, alto:75}
 
-        ctx.translate(200+150, 200+75);
-      
-        input.oninput = function () {
+        canvas.onmousedown = function(e){
+            var mousePos = {x:e.x-canvas.offsetLeft, y:e.y-canvas.offsetTop};
+
+            if (mousePos.x >= rect.x && mousePos.x <= rect.x + rect.ancho && mousePos.y >= rect.y && mousePos.y <= rect.y + rect.alto)  
+                pivotPoint = mousePos;
+   
+        }
+   
+        function draw()
+        {
             ctx.save();
-            ctx.clearRect(-200,-200,400,400);
 
+            let offSetX =0;
+            let offSetY =0;
+            
+            if (pivotPoint!=null){
+                offSetX = pivotPoint.x - rect.x;
+                offSetY = pivotPoint.y - rect.y;
+            }
+            ctx.clearRect(0,0,400,400);
+           
+            ctx.translate(rect.x+offSetX, rect.y+offSetY);
+          
+            //ctx.clearRect((rect.x+offSetX)*-1, (rect.y+offSetY)*-1,400,400);
             ctx.rotate(input.value * Math.PI / 180);
 
-            ctx.fillRect(-150, -75, 150, 75);
+            ctx.fillRect(-offSetX, -offSetY, rect.ancho, rect.alto);
 
             ctx.restore();
+
+            if (pivotPoint!=null){
+                ctx.fillStyle="red";
+                ctx.fillRect(pivotPoint.x,pivotPoint.y,10,10);
+                ctx.fillStyle="black";
+            }
+
+            requestAnimationFrame(draw);
         }
+        draw();
+
+        // ctx.translate(200+150, 200+75);
+      
+        // input.oninput = function () {
+        //     ctx.save();
+        //     ctx.clearRect(-200,-200,400,400);
+
+        //     ctx.rotate(input.value * Math.PI / 180);
+
+        //     ctx.fillRect(-150, -75, 150, 75);
+
+        //     ctx.restore();
+        // }
     </script>
 
 </body>
