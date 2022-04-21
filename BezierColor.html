@@ -8,25 +8,31 @@
         height="400" 
         width="400" 
         style="border:solid 1px black;">
+
         </canvas>
+
+        <div>
+            <input type="color" id="color" name="color"
+                   value="#000000">
+            <label for="color">Color</label>
+        </div>
 
     <script>
         let canvas = document.getElementById("c");
         let ctx = canvas.getContext("2d");
         let color = document.getElementById("color");
         const squares = [];
-        const colors = ["#069050", "#2733ba", "#ba27a7", "#f5c6ef"]
         let seleccionado = null;
         
         function dibujar(){
             ctx.clearRect(0,0,400,400);
 
-            if(squares.length >= 4){
+            ctx.drawImage(image, 100, 100);
+            if(squares.length >= 3){
                 ctx.beginPath();
                 ctx.moveTo(squares[0].x,squares[0].y);
-                ctx.bezierCurveTo(squares[1].x,squares[1].y,
-                                  squares[2].x,squares[2].y,
-                                  squares[3].x,squares[3].y);
+                ctx.quadraticCurveTo(squares[1].x,squares[1].y,
+                                     squares[2].x,squares[2].y);
                 ctx.stroke();
             }
 
@@ -41,8 +47,7 @@
 
         canvas.ondblclick = function(e){
             let mouse = {x:e.layerX, y:e.layerY};
-            let random = Math.floor(Math.random() * colors.length);
-            squares.push({x: mouse.x, y:mouse.y, ancho:20, alto:20, col: colors[random]});
+            squares.push({x: mouse.x, y:mouse.y, ancho:20, alto:20, col: color.value});
         }
 
         canvas.onmousedown=function(e){
@@ -64,10 +69,12 @@
             return;
 
             let mouse = {x:e.layerX, y:e.layerY};
+
             seleccionado.x = mouse.x;
             seleccionado.y = mouse.y;
 
         }
+
         canvas.onmouseup =function(){
             seleccionado=null;
         }

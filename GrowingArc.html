@@ -16,19 +16,23 @@
         let center = 0;
         let mouse = {x:0, y:0}; 
         let mouse2 = {x:0, y:0}; 
+        const colors = ["#069050", "#2733ba", "#ba27a7", "#f5c6ef"]
 
         canvas.onmousedown = function(e){
             ctx.clearRect(0, 0, 400, 400);
-            mouse = {x:e.layerX, y:e.layerY};
-            console.log(mouse.x);            
+            mouse = {x:e.layerX, y:e.layerY};          
         }
 
         canvas.onmouseup=function(e){
             mouse2 = {x:e.layerX, y:e.layerY};
-            console.log(mouse2.x); 
             center = Math.sqrt(Math.pow(mouse2.x - mouse.x, 2) + Math.pow(mouse2.y - mouse.y, 2));
-            console.log(Math.pow(mouse2.x - mouse.x) + Math.pow(mouse2.y - mouse.y));
-            console.log(center);
+           
+            var my_gradient = ctx.createRadialGradient(200, 200, 50, 200, 200, 200);
+            let random = Math.floor(Math.random() * colors.length);
+            my_gradient.addColorStop(0,  colors[random]);
+            my_gradient.addColorStop(1, "#4F4F4F");
+
+            ctx.strokeStyle = my_gradient;
             ctx.beginPath();
             ctx.arc(mouse.x, mouse.y, center , 0 * Math.PI, 2 * Math.PI);
             ctx.stroke();

@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>Computacion grafica I - canvas </title>
+</head>
+
+<body>
+    <canvas id="c" height="400" width="400" style="border: solid 1px black;">
+    </canvas>
+    <p>
+        <label for="text">Text:</label>
+        <input type="text" id="text" value="Weistkfly's test" />
+    </p>
+
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+        const colors = ["#18866E", "#798618", "#861818"]
+        let textToDraw = document.getElementById("text");
+
+        setInterval(function () {
+            ctx.clearRect(0, 0, 400, 400);
+            let random = Math.floor(Math.random() * colors.length);
+            ctx.strokeStyle = colors[random];
+            //sombra
+            ctx.shadowOffsetY = 2;
+            ctx.shadowColor = "#4F4F4F";
+
+            ctx.strokeText(textToDraw.value, 200, 200);
+        }, 2000);
+
+    </script>
+</body>
+
+</html>
