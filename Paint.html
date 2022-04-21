@@ -1,0 +1,181 @@
+<html>
+
+<head>
+    <title>Computacion grafica I - canvas </title>
+</head>
+
+<body>
+    <canvas id="c" height="400" width="400" style="border: solid 1px black;">
+    </canvas>
+
+    <p>
+        <label for="figure">Figure:</label>
+        <select id="figure">
+            <option value="1">Circle</option>
+            <option value="2">Rectangle</option>
+            <option value="3">Eraser</option>
+            <option value="4">Text</option>
+            <option value="5">Triangle</option>
+        </select>
+
+        <label for="text">Text:</label>
+        <input type="text" id="text" value="Hola mundo" />
+
+        <label for="fill-color">Text color:</label>
+        <input type="color" id="fill-color" value="black" />
+
+        <label for="font-size">Text size:</label>
+        <input type="number" id="font-size" min="1" max="50" value="14" />
+
+        <label for="font-family">Font family:</label>
+        <select id="font-family">
+            <option>sans-serif</option>
+            <option>serif</option>
+            <option>arial</option>
+            <option>verdana</option>
+        </select>
+
+    </p>
+
+    <script>
+        let canvas = document.getElementById("c");
+        let ctx = canvas.getContext("2d");
+
+        /* circulo
+        rectangulo
+        borrador
+        Texto
+            Color
+            Tamaño
+            Tipo de letra
+        Triangulo */
+
+        let figure = document.getElementById("figure");
+        let center = 0;
+        let textToDraw = document.getElementById("text");
+        let colorInput = document.getElementById("fill-color");
+        let fontSize = document.getElementById("font-size");
+        let fontType = document.getElementById("font-family");
+        let mouse = { x: 0, y: 0 };
+        let mouse2 = { x: 0, y: 0 };
+        let erasing = false;
+        let lineW = 1;
+
+
+        function draw() {
+
+            switch (figure.value) {
+                //Circle
+                case "1": {
+                    canvas.onmousedown = function (e) {
+                        mouse = { x: e.layerX - canvas.offsetLeft, y: e.layerY - canvas.offsetTop };
+                    }
+
+                    canvas.onmouseup = function (e) {
+                        mouse2 = { x: e.layerX - canvas.offsetLeft, y: e.layerY - canvas.offsetTop };
+                        center = Math.sqrt(Math.pow(mouse2.x - mouse.x, 2) + Math.pow(mouse2.y - mouse.y, 2));
+                        ctx.beginPath();
+                        ctx.arc(mouse.x, mouse.y, center, 0 * Math.PI, 2 * Math.PI);
+                        ctx.stroke();
+                        center = 0;
+                    }
+
+                    break;
+                }
+                //Rectangle
+                case "2": {
+
+                    canvas.onmousedown = function (e) {
+                        mouse = { x: e.x - canvas.offsetLeft, y: e.y - canvas.offsetTop };
+                    }
+
+                    canvas.onmouseup = function (e) {
+                        mouse2 = { x: e.x - canvas.offsetLeft, y: e.y - canvas.offsetTop };
+                        let width = Math.abs(mouse.x - mouse2.x);
+                        let height = Math.abs(mouse.y - mouse2.y);
+                        ctx.beginPath();
+                        ctx.rect(mouse.x, mouse.y, width, height);
+                        ctx.stroke();
+                    }
+                    break;
+                }
+                //Eraser
+                case "3": {
+                    canvas.onmousedown = function (e) {
+                        ctx.beginPath();
+                        ctx.moveTo(e.x - canvas.offsetLeft, e.y - canvas.offsetTop);
+                        erasing = true;
+                    }
+
+                    canvas.onmousemove = function (e) {
+                        if (erasing) {
+                            ctx.lineWidth = 12;
+                            ctx.strokeStyle = "#ffffff";
+                            ctx.lineTo(e.x - canvas.offsetLeft, e.y - canvas.offsetTop);
+                            ctx.stroke();
+                        }
+                    }
+
+                    canvas.onmouseup = function () {
+                        erasing = !erasing;
+                        ctx.strokeStyle = "#000000";
+                        ctx.lineWidth = lineW;
+                    }
+
+
+                    break;
+                }
+                //Text
+                case "4": {
+                    
+                    canvas.onmousedown = function (e) {
+                        mouse = { x: e.x - canvas.offsetLeft, y: e.y - canvas.offsetTop };
+                        ctx.strokeStyle = colorInput.value; 
+                        ctx.font = fontSize.value + "px " + fontType.value + " ";
+                        ctx.strokeText(textToDraw.value , mouse.x, mouse.y);
+                    }
+
+                    ctx.strokeStyle = "#000000";
+                    break;
+                }
+                //Triangle
+                case "5": {
+                    canvas.ondblclick = function (e) {
+                        let centerTri = {x: e.x - canvas.offsetLeft, y: e.y - canvas.offsetTop };
+
+                        let angle = (Math.PI * 4.5) / 3;
+
+                        ctx.beginPath();
+
+                        for(let i = 0; i<3; i++){
+                            let x = centerTri.x + Math.cos(angle * i) * 50;
+                            let y = centerTri.y + Math.sin(angle * i) * 50;
+
+                            if (i == 0){
+                                ctx.moveTo(x, y);
+                            } 
+                            else {
+                                ctx.lineTo(x, y);
+                            } 
+                        }  
+                        ctx.closePath();
+                        ctx.stroke();
+                        console.log(figure.value);
+
+                    }  
+                    break;
+                }
+            }
+        }
+
+        draw();
+        figure.onchange = draw;
+        text.oninput = draw;
+        fontSize.oninput = draw;
+        fontType.onchange = draw;
+        colorInput.oninput = draw;
+
+    </script>
+</body>
+
+</html>
